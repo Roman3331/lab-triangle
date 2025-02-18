@@ -13,7 +13,7 @@ const triangle = (value, type, value2, type2) => {
   }
 
   let a, b, c, alpha, beta;
-  const RADIAN = 180 / Math.PI;
+  const RADIAN = Math.PI / 180;
 
   switch (true) {
     case type === "leg" && type2 === "leg":
