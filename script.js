@@ -37,20 +37,17 @@ const triangle = (value, type, value2, type2) => {
     case type === "adjacent angle" && type2 === "leg":
       if (type === "leg") {
         a = value;
+        beta = value2;
       } else {
         a = value2;
-      }
-
-      if (type === "adjacent angle") {
         beta = value;
-      } else {
-        beta = value2;
       }
 
       if (beta <= 0 || beta >= 90) {
         return "failed";
       }
-      b = a / Math.tan(beta * RADIAN);
+
+      b = a * Math.tan(beta * RADIAN);
       c = Math.sqrt(a ** 2 + b ** 2);
       alpha = 90 - beta;
       break;
@@ -59,21 +56,18 @@ const triangle = (value, type, value2, type2) => {
     case type === "opposite angle" && type2 === "leg":
       if (type === "leg") {
         a = value;
+        alpha = value2;
       } else {
         a = value2;
-      }
-
-      if (type === "opposite angle") {
         alpha = value;
-      } else {
-        alpha = value2;
       }
 
       if (alpha <= 0 || alpha >= 90) {
         return "failed";
       }
-      b = a / Math.sin(alpha * RADIAN);
-      c = Math.sqrt(a ** 2 + b ** 2);
+
+      c = a / Math.sin(alpha * RADIAN);
+      b = Math.sqrt(c ** 2 - a ** 2);
       beta = 90 - alpha;
       break;
 
@@ -81,27 +75,28 @@ const triangle = (value, type, value2, type2) => {
     case type === "angle" && type2 === "hypotenuse":
       if (type === "hypotenuse") {
         c = value;
+        alpha = value2;
       } else {
         c = value2;
-      }
-
-      if (type === "angle") {
         alpha = value;
-      } else {
-        alpha = value2;
       }
 
       if (alpha <= 0 || alpha >= 90) {
         return "failed";
       }
+
       a = c * Math.sin(alpha * RADIAN);
       b = c * Math.cos(alpha * RADIAN);
       beta = 90 - alpha;
       break;
+
+    default:
+      console.log("ще раз перечитайте інструкцію");
+      return "failed";
   }
 
   console.log(`a = ${a.toFixed(2)}, b = ${b.toFixed(2)}, c = ${c.toFixed(2)}, alpha = ${alpha.toFixed(2)}, beta = ${beta.toFixed(2)}`);
   return "success";
 };
 
-triangle(4, "leg", 8, "adjacent angle");
+triangle(7, "leg", 18, "hypotenuse");
